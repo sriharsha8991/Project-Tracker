@@ -53,6 +53,22 @@ class Database:
         except Exception as e:
             st.error(f"Error updating project: {str(e)}")
             return None
+        
+    def update_task_status(self, task_id, new_status):
+        try:
+            result = self.client.table('tasks').update({"status": new_status}).eq('id', task_id).execute()
+            return result.data
+        except Exception as e:
+            st.error(f"Error updating task status: {str(e)}")
+            return None
+        
+    def update_project_status(self, project_id, new_status):
+        try:
+            result = self.client.table('projects').update({"status": new_status}).eq('id', project_id).execute()
+            return result.data
+        except Exception as e:
+            st.error(f"Error updating project status: {str(e)}")
+            return None
 
     def get_tasks(self, project_id=None):
         try:
